@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+@font-face {
+  font-family: 'NerdFontsSymbols';
+  src: url("./fonts/NFSymbols.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.nf {
+  font-family: 'NerdFontsSymbols';
+}
+:root {
+  --filter : none;
+  --titlebar-bg : #12121255;
+  --bg-opacity : 0.5 ;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  margin: auto;
+  background-color: rgba(33, 33, 33, var(--bg-opacity));
+  width: 100%;
+  color: #eeeeee;
+  min-width: 400px;
+}
+.titlebar {
+  margin: 0px;
+  width: 100%;
+  text-align: left;
+  height: 30px;
+  padding: none;
+  -webkit-app-region: drag;
+  font-size: 14px;
+  background-color: var(--titlebar-bg);
+  color: #eeeeee;
+  transition: background-color 0.5s;
+}
+.title {
+  padding: 0px 5px 0px 5px;
+}
+h1.name, #time, #date, .icon{
+  margin: 15px;
+}
+div.header {
+  margin: 15px;
+  display: flex;
+  justify-content:  space-between;
+}
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0;
+}
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 8px;
+  height: 30px;
+  margin: 15px;
+  background: #00000099;
+  font-size: 22px;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+  box-shadow: 0px 2px 7px #000000aa;
+}
+ul li.done {
+  padding: 12px 8px 12px 18px;
+  background-color: #0078d4ee;
+}
+ul li.done::before {
+  content: ' ';
+  font-family: 'NerdFontsSymbols';
+  width: 20px;
+}
+input {
+  height: 32px;
+  color: #ffffff;
+  padding: 12px 40px 12px 40px;
+  margin-right: 10px;
+  background-color: #00000099;
+  font-size: 18px;
+  box-shadow: 0px 2px 7px #000000aa;
+  width: 100%;
+  border: none;
+  text-align: center;
+}
+button.add {
+  min-width: 56px;
+  height: 56px;
+  margin: 0px;
+  background-color: #00000088;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  box-shadow: 0px 2px 7px #000000aa;
+  transition: background-color 200ms, transform 200ms, box-shadow 200ms;
+}
+button.add:hover {
+  background-color: #f0f0f088;
+  transform: scale(1.1);
+  box-shadow: 0px 2px 15px #000000aa;
+}
+button.menubutton {
+  -webkit-app-region: none;
+  background-color: #00000000;
+  transition: background-color 250ms;
+  font-size: 18px;
+  border: none;
+  height: 30px;
+  padding: 0px 15px 0px 15px;
+  color: white;
+}
+button.menubutton:hover {
+  background-color: #ffffff44;
+}
+.close {
+  font-family: 'NerdFontsSymbols';
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  line-height: 14px;
+  font-size: 24px;
+  margin: 10px;
+}
+.close:hover {
+  background-color: #f44336;
+  border-radius: 50%;
+  color: white;
+}
+.sidebar {
+  margin-top: 30px !important;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1; 
+  botton: 0;
+  left: 0;
+  background-color: #121212cc;
+  overflow-x: hidden;
+  transition: width 0.5s;
+}
+.sidebar h2, .sidebar h3, .sidebar label {
+  padding: 15px;
+  margin: 0;
+}
+.main {
+  transition: filter 0.5s;
+  filter: var(--filter);
+}
+.config-section {
+  display: flex;
+}
+#opacity-input {
+  width: 32px;
+  padding: 10px;
+  font-size: 14px;
+}
+.wincontrol-box {
+  -webkit-user-select: none;
+  -webkit-app-region: none;
+  line-height: 30px;
+  font-size: 20px;
+  height: 30px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.winclose {
+  -webkit-app-region: none;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: background-color 250ms;
+}
+.winminimise {
+  -webkit-app-region: none;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 0;
+  right: 30px;
+  transition: background-color 250ms;
+}
+.winclose:hover {
+  background-color: #ff0000ee;
+}
+.winminimise:hover {
+  background-color: #ffffff44;
+}
+.winclose:active {
+  background-color: #ff8080ee;
+}
+.winminimise:active {
+  background-color: #ffffff88;
+}
