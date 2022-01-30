@@ -14,3 +14,5 @@ npm run make
 Use release-
 <br>
 (Not ready yet)
+<br>
+Warning- This app is still in development, hence expect bugs and issues. If u have a suggestion or bug report please send on the issues tab.
