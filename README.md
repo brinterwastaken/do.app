@@ -10,5 +10,5 @@ npm i
 npm run make
 ```
 4. The application will be in the out directory.
-Use release-
+\nUse release-
 (Not ready yet)
