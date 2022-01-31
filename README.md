@@ -9,14 +9,15 @@ A simple todo list app made with electron and glasstron.
 <br>
 <h2>Install</h2>
 Recommended- Build from source
-1. Install nodejs and npm
-2. Clone this repository
-3. Run-
+<ol>
+<li>Install nodejs and npm</li>
+<li>Clone this repository</li>
+<li>Run-
 ```
 npm i
 npm run make
-```
-4. The application will be in the out directory.
+```</li>
+<li>The application will be in the out directory.</li>
 <br>
 Use release-
 <br>
