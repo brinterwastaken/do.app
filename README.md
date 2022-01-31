@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/xXTgamerXx/do.app/main/icon.png" align="center" alt="icon">
+<img src="https://raw.githubusercontent.com/xXTgamerXx/do.app/main/icon.png" align="center" alt="icon"></img>
 # do.app
 A simple todo list app made with electron and glasstron.
 ## Screenshot-
