@@ -8,7 +8,7 @@ A simple todo list app made with electron and glasstron.
 <img src="https://user-images.githubusercontent.com/72494265/151741659-f3bcb7b9-35ad-4aab-8dcd-0bef817c938b.png"></img>
 <br>
 <h2>Install</h2>
-Recommended- Build from source
+<p>Recommended- Build from source</p>
 <ol>
 <li>Install nodejs and npm</li>
 <li>Clone this repository</li>
@@ -19,8 +19,6 @@ npm run make
 ```</li>
 <li>The application will be in the out directory.</li>
 <br>
-Use release-
+<p>Use release- (Not ready yet)</p>
 <br>
-(Not ready yet)
-<br>
-Warning- This app is still in development, hence expect bugs and issues. If u have a suggestion or bug report please send on the issues tab.
+<p>Warning- This app is still in development, hence expect bugs and issues. If u have a suggestion or bug report please send on the issues tab.</p>
