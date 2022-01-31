@@ -1,5 +1,8 @@
 # do.app
 A simple todo list app made with electron and glasstron.
+## Screenshot-
+![do-app](https://user-images.githubusercontent.com/72494265/151741659-f3bcb7b9-35ad-4aab-8dcd-0bef817c938b.png)
+<br>
 ## Install 
 Recommended- Build from source
 1. Install nodejs and npm
