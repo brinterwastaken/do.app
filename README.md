@@ -18,5 +18,6 @@ npm i
 npm run make
 ```</li>
 <li>The application will be in the out directory.</li>
+</ol>
 <p>Use release- (Not ready yet)</p>
 <p>Warning- This app is still in development, hence expect bugs and issues. If u have a suggestion or bug report please send on the issues tab.</p>
