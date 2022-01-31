@@ -1,4 +1,4 @@
-<center>![icon](https://user-images.githubusercontent.com/72494265/151741887-6374fada-d89e-4e8b-ba03-2a93950caa96.png)</center>
+<span align="center">![icon](https://user-images.githubusercontent.com/72494265/151741887-6374fada-d89e-4e8b-ba03-2a93950caa96.png)</span>
 # do.app
 A simple todo list app made with electron and glasstron.
 ## Screenshot-
