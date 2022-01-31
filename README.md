@@ -14,7 +14,7 @@ A simple todo list app made with electron and glasstron.
 <li>Clone this repository</li>
 <li>Run-
 <pre><code>npm i
-# (Optional) npm start
+# (Optional to run directly) npm start
 npm run make
 </code></pre></li>
 <li>The application will be in the out directory.</li>
