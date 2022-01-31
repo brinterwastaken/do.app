@@ -7,8 +7,8 @@ const fs = require('fs');
 const datapath = electron.app.getPath('userData');
 console.log(datapath);
 
-if (fs.existsSync(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.txt")) {
-  fs.readFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.txt", 'utf-8', (err, data) => {
+if (fs.existsSync(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml")) {
+  fs.readFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", 'utf-8', (err, data) => {
     if(err){
       console.log("An error ocurred reading the file :" + err.message);
     }
@@ -19,13 +19,14 @@ if (fs.existsSync(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.
   });
 }
 else {
-  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.txt", '', (err) => {
+  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", '', (err) => {
     if(err){
       console.log("An error ocurred creating the file "+ err.message)
     }
     console.log("New todo file created");
   });
 }
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -108,7 +109,7 @@ electron.app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 
 ipcMain.on('savefile', (event, arg) => {
-  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.txt", arg, (err) => {
+  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", arg, (err) => {
     if(err){
       console.log("An error ocurred creating the file "+ err.message)
     }

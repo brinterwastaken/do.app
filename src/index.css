@@ -52,8 +52,8 @@ ul {
 ul li {
   cursor: pointer;
   position: relative;
-  padding: 12px 8px 12px 8px;
-  height: 30px;
+  padding: 12px 50px 12px 8px;
+  min-height: 30px;
   margin: 15px;
   background: #00000099;
   font-size: 22px;
@@ -95,7 +95,7 @@ button.add {
   transition: background-color 200ms, transform 200ms, box-shadow 200ms;
 }
 button.add:hover {
-  background-color: #f0f0f088;
+  background-color: #a0a0a088;
   transform: scale(1.1);
   box-shadow: 0px 2px 15px #000000aa;
 }
@@ -121,6 +121,8 @@ button.menubutton:hover {
   line-height: 14px;
   font-size: 24px;
   margin: 10px;
+  border-radius: 50%;
+  transition: background-color 200ms;
 }
 .close:hover {
   background-color: #f44336;
@@ -196,4 +198,20 @@ button.menubutton:hover {
 }
 .winminimise:active {
   background-color: #ffffff88;
+}
+#opendatapath {
+  bottom: 30px;
+  margin: 15px;
+  height: 56px;
+  width: 220px;
+  background-color: #00000088;
+  border: none;
+  font-size: 20px;
+  color: #ffffff;
+  box-shadow: 0px 2px 7px #000000aa;
+  position: absolute;
+  transition: background-color 200ms;
+}
+#opendatapath:hover {
+  background-color: #a0a0a088;
 }

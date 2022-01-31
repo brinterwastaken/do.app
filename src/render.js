@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 const storage = require('electron-json-storage');
 const os = require('os');
+const { shell } = require('electron')
 
 var inputbar = document.getElementById('input');
 inputbar.addEventListener("keyup", function(EnterPressed) {
@@ -9,15 +10,6 @@ inputbar.addEventListener("keyup", function(EnterPressed) {
     newItem();
   }
 });
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.remove();
-    ipcRenderer.send('savefile', content);
-  }
-}
 var listItem = document.querySelector('ul');
 listItem.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
@@ -53,6 +45,7 @@ function newItem() {
     close[i].onclick = function() {
       var div = this.parentElement;
       div.remove();
+      var content = document.getElementById("TodoList").innerHTML;
       ipcRenderer.send('savefile', content);
     }
   }
@@ -133,13 +126,15 @@ ipcRenderer.on('mainprocess-response', (event, arg) => {
     close[i].onclick = function() {
       var div = this.parentElement;
       div.remove();
+      var content = document.getElementById("TodoList").innerHTML;
       ipcRenderer.send('savefile', content);
     }
   }
 });
+var arg;
 ipcRenderer.send('request-datapath');
 ipcRenderer.on('datapath', (event, arg) => {
-  //configfolder = 
+  document.getElementById('head').insertAdjacentHTML('beforeend','<link rel="stylesheet" type="text/css" href="' + arg + (process.platform == 'win32' ? "\\" : "/") + "custom.css\">");
   storage.setDataPath(arg + (process.platform == 'win32' ? "\\" : "/") + "config");
   storage.get('opacity', function(error, data) {
     if (error) throw error;
@@ -148,6 +143,7 @@ ipcRenderer.on('datapath', (event, arg) => {
       css.style.setProperty('--bg-opacity', value);
     }
   });
+  openDataPath(arg);
 });
 var opacitybar = document.getElementById('opacity-input');
 function ChangeOpacity() {
@@ -170,9 +166,24 @@ opacitybar.addEventListener("keyup", function(EnterPressed) {
     ChangeOpacity();
   }
 });
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.remove();
+    var content = document.getElementById("TodoList").innerHTML;
+    ipcRenderer.send('savefile', content);
+  }
+}
 function closeWin() {
   ipcRenderer.send('close-win');
 }
 function minimizeWin() {
   ipcRenderer.send('minimize-win');
+}
+function openDataPath(path) {
+  document.getElementById('opendatapath').addEventListener("click", () => {
+    shell.openPath(path)
+  });
 }
