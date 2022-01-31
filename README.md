@@ -19,5 +19,5 @@ npm run make
 </code></pre></li>
 <li>The application will be in the out directory.</li>
 </ol>
-<p>Use release- (Not ready yet)</p>
+<p>Use release- Head to https://github.com/xXTgamerXx/do.app/releases and download the latest release.</p>
 <p>Warning- This app is still in development, hence expect bugs and issues. If u have a suggestion or bug report please send on the issues tab.</p>
