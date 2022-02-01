@@ -8,17 +8,38 @@
 .nf {
   font-family: 'NerdFontsSymbols';
 }
-:root {
-  --filter : none;
-  --titlebar-bg : #12121255;
-  --bg-opacity : 0.5 ;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --filter : none;
+    --titlebar-bg : #12121255;
+    --bg-opacity : 0.75;
+    --bg-color : rgba(33, 33, 33, var(--bg-opacity));
+    --sidebar-bg : #121212cc;
+    --fg-color : #eeeeee;
+    --hover-bg : #cccccccc;
+    --task-bg : #00000099;
+    --done-bg : #3890EBee;
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --filter : none;
+    --titlebar-bg : #ffffff55;
+    --bg-opacity : 0.75;
+    --bg-color : rgba(240, 240, 240, var(--bg-opacity));
+    --sidebar-bg : #ffffffcc;
+    --fg-color : #121212;
+    --hover-bg : #808080cc;
+    --task-bg : #ffffff99;
+    --done-bg : #36A5EBee;
+  }
 }
 body {
   font-family: 'Inter', sans-serif;
   margin: auto;
-  background-color: rgba(33, 33, 33, var(--bg-opacity));
+  background-color: var(--bg-color);
   width: 100%;
-  color: #eeeeee;
+  color: var(--fg-color);
   min-width: 400px;
 }
 .titlebar {
@@ -30,7 +51,6 @@ body {
   -webkit-app-region: drag;
   font-size: 14px;
   background-color: var(--titlebar-bg);
-  color: #eeeeee;
   transition: background-color 0.5s;
 }
 .title {
@@ -55,16 +75,16 @@ ul li {
   padding: 12px 50px 12px 8px;
   min-height: 30px;
   margin: 15px;
-  background: #00000099;
+  background: var(--task-bg);
   font-size: 22px;
   transition: 0.2s;
   -webkit-user-select: none;
   user-select: none;
-  box-shadow: 0px 2px 7px #000000aa;
+  box-shadow: 0px 2px 7px #00000055;
 }
 ul li.done {
   padding: 12px 8px 12px 18px;
-  background-color: #0078d4ee;
+  background-color: var(--done-bg);
 }
 ul li.done::before {
   content: ' ';
@@ -76,9 +96,9 @@ input {
   color: #ffffff;
   padding: 12px 40px 12px 40px;
   margin-right: 10px;
-  background-color: #00000099;
+  background-color: var(--task-bg);
   font-size: 18px;
-  box-shadow: 0px 2px 7px #000000aa;
+  box-shadow: 0px 2px 7px #00000055;
   width: 100%;
   border: none;
   text-align: center;
@@ -87,17 +107,16 @@ button.add {
   min-width: 56px;
   height: 56px;
   margin: 0px;
-  background-color: #00000088;
+  background-color: var(--task-bg);
   border: none;
   font-size: 24px;
-  color: #ffffff;
-  box-shadow: 0px 2px 7px #000000aa;
+  color: var(--fg-color);
+  box-shadow: 0px 2px 7px #00000055;
   transition: background-color 200ms, transform 200ms, box-shadow 200ms;
 }
 button.add:hover {
-  background-color: #a0a0a088;
-  transform: scale(1.1);
-  box-shadow: 0px 2px 15px #000000aa;
+  background-color: var(--hover-bg);
+
 }
 button.menubutton {
   -webkit-app-region: none;
@@ -107,10 +126,10 @@ button.menubutton {
   border: none;
   height: 30px;
   padding: 0px 15px 0px 15px;
-  color: white;
+  color: var(--fg-color);
 }
 button.menubutton:hover {
-  background-color: #ffffff44;
+  background-color: var(--hover-bg);
 }
 .close {
   font-family: 'NerdFontsSymbols';
@@ -137,7 +156,7 @@ button.menubutton:hover {
   z-index: 1; 
   botton: 0;
   left: 0;
-  background-color: #121212cc;
+  background-color: var(--sidebar-bg);
   overflow-x: hidden;
   transition: width 0.5s;
 }
@@ -191,13 +210,7 @@ button.menubutton:hover {
   background-color: #ff0000ee;
 }
 .winminimise:hover {
-  background-color: #ffffff44;
-}
-.winclose:active {
-  background-color: #ff8080ee;
-}
-.winminimise:active {
-  background-color: #ffffff88;
+  background-color: var(--hover-bg);
 }
 #opendatapath {
   bottom: 30px;

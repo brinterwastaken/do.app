@@ -101,13 +101,13 @@ function sidebar() {
   if (open == "0") {
     document.getElementById("sidebar").style.width = "250px";
     css.style.setProperty('--filter', 'blur(5px)');
-    css.style.setProperty('--titlebar-bg', '#121212cc');
+    document.getElementById("titlebar").style.setProperty('background-color', 'var(--sidebar-bg)');
     open = "1";
   }
   else if (open == "1") {
     document.getElementById("sidebar").style.width = "0";
     css.style.setProperty('--filter', 'none');
-    css.style.setProperty('--titlebar-bg', '#12121255');
+    document.getElementById("titlebar").style.setProperty('background-color', 'var(--titlebar-bg)');
     open = "0";
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "do.app",
   "productName": "do.app",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
