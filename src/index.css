@@ -46,6 +46,11 @@ body {
   min-width: 400px;
   transition: background-color 200ms, color 200ms;
 }
+.version-num {
+  position: absolute;
+  bottom: 110px;
+  left: 15px;
+}
 .titlebar {
   margin: 0px;
   width: 100%;
@@ -260,7 +265,6 @@ button.menubutton:hover {
   background-color: #eee;
   border-radius: 50%;
 }
-
 .container:hover input ~ .checkmark {
   background-color: #ccc;
   transition: background-color 200ms;
