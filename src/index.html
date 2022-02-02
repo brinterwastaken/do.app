@@ -7,20 +7,25 @@
   </head>
   <body>
     <div id="sidebar" class="sidebar">
-      <h2>Settings</h2>
-      <h3>Theming</h3>
+      <h1>Settings</h1>
+      <h2>Theming</h2>
       <div class="config-section">
         <label for="opacity-input">Opacity:</label><input id="opacity-input">
       </div>
-      <!-- 
-      <div class="theming-container">
-        <input type="radio" name="dark" id="darkradio">
-        <label for="darkradio">Dark</label>
-        <input type="radio" name="light" id="darkradio">
-        <label for="darkradio">Dark</label>
-        <input type="radio" name="system" id="darkradio">
-        <label for="darkradio">Dark</label>
-      </div> -->
+      <br>
+      <label>Theme</label>
+      <label class="container" onclick="setSystemTheme()">System
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container" onclick="setDarkTheme()">Dark
+        <input type="radio" checked="checked" name="radio">
+        <span class="checkmark"></span>
+      </label>
+      <label class="container" onclick="setLightTheme()">Light
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+      </label>
       <button id="opendatapath">Open Config Folder</button>
     </div> 
     <div class="titlebar" id="titlebar">

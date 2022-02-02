@@ -187,3 +187,13 @@ function openDataPath(path) {
     shell.openPath(path)
   });
 }
+function setSystemTheme() {
+  ipcRenderer.invoke('dark-mode:system');
+  
+}
+function setDarkTheme() {
+  ipcRenderer.invoke('dark-mode:enabled');
+}
+function setLightTheme() {
+  ipcRenderer.invoke('dark-mode:disabled');
+}

@@ -63,21 +63,23 @@ const spawnWindow = () => {
   // and load the index.html of the app.
   win.loadFile(path.join(__dirname, 'index.html'));
 
-  win.blurType = "blurbehind";
+  if (process.platform == 'darwin') {
+    win.blurType = "vibrancy";
+  }
+  else {
+    win.blurType = "blurbehind";
+  }
+
   win.setBlur(true);
 
-  electron.ipcMain.handle('dark-mode:toggle', () => {
-    if (nativeTheme.shouldUseDarkColors) {
-      nativeTheme.themeSource = 'light'
-    } 
-    else {
-      nativeTheme.themeSource = 'dark'
-    }
-    return nativeTheme.shouldUseDarkColors
+  ipcMain.handle('dark-mode:disabled', () => {
+    electron.nativeTheme.themeSource = 'light'
   });
-
+  ipcMain.handle('dark-mode:enabled', () => {
+    electron.nativeTheme.themeSource = 'dark'
+  });
   ipcMain.handle('dark-mode:system', () => {
-    nativeTheme.themeSource = 'system'
+    electron.nativeTheme.themeSource = 'system'
   });
   ipcMain.on('close-win', (event, arg) => {
     win.close();

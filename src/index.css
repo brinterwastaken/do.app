@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 @font-face {
   font-family: 'NerdFontsSymbols';
   src: url("./fonts/NFSymbols.ttf") format("truetype");
@@ -7,6 +7,9 @@
 }
 .nf {
   font-family: 'NerdFontsSymbols';
+}
+:root {
+  --font : "Rubik";
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -35,12 +38,13 @@
   }
 }
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font), sans-serif;
   margin: auto;
   background-color: var(--bg-color);
   width: 100%;
   color: var(--fg-color);
   min-width: 400px;
+  transition: background-color 200ms, color 200ms;
 }
 .titlebar {
   margin: 0px;
@@ -154,15 +158,17 @@ button.menubutton:hover {
   width: 0;
   position: fixed;
   z-index: 1; 
-  bottom: 0;
   left: 0;
   background-color: var(--sidebar-bg);
   overflow-x: hidden;
-  transition: width 0.5s;
+  transition: width 0.5s, background-color 200ms, color 200ms;;
 }
-.sidebar h2, .sidebar h3, .sidebar label {
+.sidebar h1, .sidebar h2, .sidebar h3, .sidebar label {
   padding: 15px;
   margin: 0;
+}
+.sidebar label {
+  font-size: 24px;
 }
 .main {
   transition: filter 0.5s;
@@ -177,6 +183,7 @@ button.menubutton:hover {
   font-size: 14px;
 }
 .wincontrol-box {
+  user-select: none;
   -webkit-user-select: none;
   -webkit-app-region: none;
   line-height: 30px;
@@ -228,3 +235,39 @@ button.menubutton:hover {
 #opendatapath:hover {
   background-color: #a0a0a088;
 }
+.container {
+  display: block;
+  position: relative;
+  padding: 10px 10px 10px 50px !important;
+  cursor: pointer;
+  font-size: 20px !important;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  display: none;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  margin: 10px 10px 10px 15px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+  transition: background-color 200ms;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+  transition: background-color 200ms;
+}
+
