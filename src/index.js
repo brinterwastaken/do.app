@@ -91,6 +91,28 @@ const spawnWindow = () => {
   ipcMain.on('minimize-win', (event, arg) => {
     win.minimize();
   });
+  ipcMain.on('blurchange', (event, arg) => {
+    if (process.platform == "win32") {
+      if (arg == 'acrylic') {
+        win.setBlur(false);
+        win.blurType = "acrylic";
+        win.setBlur(true);
+      }
+      else if (arg == 'aero') {
+        win.setBlur(false);
+        win.blurType = "blurbehind";
+        win.setBlur(true);
+      }
+      else if (arg == 'none') {
+        win.setBlur(false);
+        win.blurType = "transparent";
+        win.setBlur(true);
+      }
+    }
+    else {
+      event.sender.send('blurchange-error');
+    }
+  });
 };
 
 

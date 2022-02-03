@@ -27,6 +27,10 @@ function setTheme(arg) {
     storage.set("theme", {"theme" : arg});
   }
 }
+function setBlur(arg) {
+  ipcRenderer.send('blurchange', arg);
+  storage.set("blur", {"blurtype" : arg});
+}
 var listItem = document.querySelector('ul');
 listItem.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
@@ -167,7 +171,17 @@ ipcRenderer.on('datapath', (event, arg) => {
       setTheme(value);
     }
   });
+  storage.get('blur', function(error, data) {
+    if (error) throw error;
+    for(let value of Object.values(data)){
+      console.log(value);
+      setBlur(value);
+    }
+  });
   openDataPath(arg);
+});
+ipcRenderer.on('blurchange-error', (event, arg) => {
+  alert("This option only works on windows.")
 });
 var opacitybar = document.getElementById('opacity-input');
 function ChangeOpacity() {
