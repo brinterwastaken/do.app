@@ -2,7 +2,7 @@
   "name": "do.app",
   "productName": "do.app",
   "version": "0.5.4",
-  "description": "My Electron application description",
+  "description": "A simple, customisable Todo list app.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",

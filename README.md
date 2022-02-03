@@ -3,7 +3,7 @@
 </p>
 <br>
 <h1>do.app</h1>
-<p>A simple todo list app made with electron and glasstron.</p>
+<p>A simple, customisable Todo list app, made with Electron and Glasstron</p>
 <h2>Screenshot-</h2>
 <img src="https://user-images.githubusercontent.com/72494265/151741659-f3bcb7b9-35ad-4aab-8dcd-0bef817c938b.png"></img>
 <br>
