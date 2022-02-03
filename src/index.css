@@ -145,11 +145,13 @@ button.menubutton:hover {
 .close {
   font-family: 'NerdFontsSymbols';
   position: absolute;
+  content: '';
   right: 0;
   top: 0;
   padding: 10px;
-  line-height: 14px;
-  font-size: 24px;
+  height: 14px;
+  width: 14px;
+  font-size: 15px;
   margin: 10px;
   border-radius: 50%;
   transition: background-color 200ms;

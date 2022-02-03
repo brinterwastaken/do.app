@@ -48,8 +48,8 @@ function newItem() {
     document.getElementById("input").value = "";
 
     var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
+    var txt = document.createTextNode("");
+    span.className = "close nf";
     span.appendChild(txt);
     li.appendChild(span);
 
