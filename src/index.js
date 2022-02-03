@@ -64,7 +64,7 @@ const spawnWindow = () => {
   win.loadFile(path.join(__dirname, 'index.html'));
 
   if (process.platform == 'darwin') {
-    win.blurType = "vibrancy";
+    win.vibrancy;
   }
   else {
     win.blurType = "blurbehind";
