@@ -1,7 +1,8 @@
 const { ipcRenderer } = require('electron');
 const storage = require('electron-json-storage');
 const os = require('os');
-const { shell } = require('electron')
+const { shell } = require('electron');
+const fs = require('fs');
 
 var inputbar = document.getElementById('input');
 inputbar.addEventListener("keyup", function(EnterPressed) {
