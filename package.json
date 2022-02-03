@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Trinethr",
-  "license": "MIT",
+  "license": "GNU GPL v3",
   "config": {
     "forge": {
       "packagerConfig": {

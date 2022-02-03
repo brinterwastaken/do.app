@@ -1,7 +1,8 @@
 const { ipcRenderer } = require('electron');
 const storage = require('electron-json-storage');
 const os = require('os');
-const { shell } = require('electron')
+const { shell } = require('electron');
+
 
 var inputbar = document.getElementById('input');
 inputbar.addEventListener("keyup", function(EnterPressed) {
@@ -52,8 +53,8 @@ function newItem() {
     document.getElementById("input").value = "";
 
     var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
+    var txt = document.createTextNode("");
+    span.className = "close nf";
     span.appendChild(txt);
     li.appendChild(span);
 
