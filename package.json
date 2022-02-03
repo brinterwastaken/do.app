@@ -2,7 +2,7 @@
   "name": "do.app",
   "productName": "do.app",
   "version": "0.5.4",
-  "description": "A simple, customisable Todo list app.",
+  "description": "A simple, customizable Todo list app.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
