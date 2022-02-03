@@ -168,7 +168,7 @@ button.menubutton:hover {
   left: 0;
   background-color: var(--sidebar-bg);
   overflow-x: hidden;
-  transition: width 0.5s, background-color 200ms, color 200ms;;
+  transition: width 0.5s, background-color 0.5s, color 200ms;;
 }
 .sidebar h1, .sidebar h2, .sidebar h3, .sidebar label {
   padding: 15px;
