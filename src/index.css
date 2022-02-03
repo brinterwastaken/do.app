@@ -112,6 +112,7 @@ input {
   width: 100%;
   border: none;
   text-align: center;
+  transition: background-color 200ms, color 200ms;
 }
 button.add {
   min-width: 56px;
