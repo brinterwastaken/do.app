@@ -50,6 +50,7 @@ body {
   position: absolute;
   bottom: 110px;
   left: 15px;
+  cursor: pointer;
 }
 .titlebar {
   margin: 0px;
@@ -102,7 +103,7 @@ ul li.done::before {
 }
 input {
   height: 32px;
-  color: #ffffff;
+  color: var(--fg-color);
   padding: 12px 40px 12px 40px;
   margin-right: 10px;
   background-color: var(--task-bg);

@@ -14,19 +14,19 @@
       </div>
       <br>
       <label>Theme</label>
-      <label class="container" onclick="setSystemTheme()">System
-        <input type="radio" name="radio">
+      <label class="container" onclick="setTheme('sys')">System
+        <input type="radio" name="radio" id="systheme">
         <span class="checkmark"></span>
       </label>
-      <label class="container" onclick="setDarkTheme()">Dark
-        <input type="radio" checked="checked" name="radio">
+      <label class="container" onclick="setTheme('dark')">Dark
+        <input type="radio" name="radio" id="darktheme">
         <span class="checkmark"></span>
       </label>
-      <label class="container" onclick="setLightTheme()">Light
-        <input type="radio" name="radio">
+      <label class="container" onclick="setTheme('light')">Light
+        <input type="radio" name="radio" id="lighttheme">
         <span class="checkmark"></span>
       </label>
-      <a class="version-num">v0.5.2</a>
+      <a class="version-num" onclick="shell.openExternal('https://github.com/xXTgamerXx/do.app')">v0.5.2</a>
       <button id="opendatapath">Open Config Folder</button>
     </div> 
     <div class="titlebar" id="titlebar">
@@ -41,7 +41,7 @@
       <h2 id="time">e</h2>
       <h3 id="date">e</h2>
       <div class="header">
-        <input type="text" id="input" placeholder="What's your plan for today?">
+        <input type="text" id="input" placeholder="Add a task">
         <button onclick="newItem()" class="add"><div class="nf">樂</div></button>
       </div>
       <ul id="TodoList"></ul>

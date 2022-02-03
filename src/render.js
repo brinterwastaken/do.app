@@ -10,6 +10,23 @@ inputbar.addEventListener("keyup", function(EnterPressed) {
     newItem();
   }
 });
+function setTheme(arg) {
+  if (arg == 'dark') {
+    ipcRenderer.invoke('dark-mode:enabled');
+    document.getElementById('darktheme').setAttribute('checked', 'checked');
+    storage.set("theme", {"theme" : arg});
+  }
+  else if (arg == 'light') {
+    ipcRenderer.invoke('dark-mode:disabled');
+    document.getElementById('lighttheme').setAttribute('checked', 'checked');
+    storage.set("theme", {"theme" : arg});
+  }
+  else if (arg == 'sys') {
+    ipcRenderer.invoke('dark-mode:system');
+    document.getElementById('systheme').setAttribute('checked', 'checked');
+    storage.set("theme", {"theme" : arg});
+  }
+}
 var listItem = document.querySelector('ul');
 listItem.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
@@ -143,6 +160,13 @@ ipcRenderer.on('datapath', (event, arg) => {
       css.style.setProperty('--bg-opacity', value);
     }
   });
+  storage.get('theme', function(error, data) {
+    if (error) throw error;
+    for(let value of Object.values(data)){
+      console.log(value);
+      setTheme(value);
+    }
+  });
   openDataPath(arg);
 });
 var opacitybar = document.getElementById('opacity-input');
@@ -186,14 +210,4 @@ function openDataPath(path) {
   document.getElementById('opendatapath').addEventListener("click", () => {
     shell.openPath(path)
   });
-}
-function setSystemTheme() {
-  ipcRenderer.invoke('dark-mode:system');
-  
-}
-function setDarkTheme() {
-  ipcRenderer.invoke('dark-mode:enabled');
-}
-function setLightTheme() {
-  ipcRenderer.invoke('dark-mode:disabled');
 }
