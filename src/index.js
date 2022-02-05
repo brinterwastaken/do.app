@@ -52,7 +52,7 @@ const spawnWindow = () => {
     height: 800,
     minWidth: 400,
     frame: false,
-    vibrancy: 'sidebar',
+    vibrancy: "sidebar",
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
@@ -73,7 +73,7 @@ const spawnWindow = () => {
     win.setBlur(true);
   }
   else if (process.platform == "darwin") {
-    win.vibrancy('sidebar');
+    win.vibrancy = "sidebar";
     win.setBlur(true);
   }
 
