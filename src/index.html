@@ -3,14 +3,22 @@
   <head id="head">
     <meta charset="UTF-8" />
     <title>do.app</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div id="sidebar" class="sidebar">
       <h1>Settings</h1>
-      <h2>Theming</h2>
-      <div class="config-section">
-        <label for="opacity-input">Opacity:</label><input id="opacity-input">
+      <label for="opacity-slider">Opacity</label>
+      <div class="sliderbox">
+        <input type="range" name="Opacity" id="opacity-slider" min="0" max="20">
+        <span id="opacity-value"></span>
+      </div>
+      <br>
+      <label for="accent-selector">Accent</label>
+      <div class="accentbox">
+        <input type="color" name="Accent Color" id="accent-selector">
+        <span id="accent-value"></span>
       </div>
       <br>
       <label>Theme</label>
@@ -26,7 +34,7 @@
         <input type="radio" name="radio" id="lighttheme">
         <span class="checkmark"></span>
       </label>
-      <a class="version-num" onclick="shell.openExternal('https://github.com/xXTgamerXx/do.app')">v0.5.4</a>
+      <a class="version-num" onclick="shell.openExternal('https://github.com/xXTgamerXx/do.app')">v0.5.6</a>
       <button id="opendatapath">Open Config Folder</button>
     </div> 
     <div class="titlebar" id="titlebar">
@@ -38,13 +46,15 @@
       </div>
     </div>
     <div class="main">
-      <h2 id="time">e</h2>
-      <h3 id="date">e</h2>
+      <div id="timedate">
+        <span id="time"></span>
+        <span id="date"></span>
+      </div>
       <div class="header">
         <input type="text" id="input" placeholder="Add a task">
         <button onclick="newItem()" class="add"><div class="nf">樂</div></button>
       </div>
-      <ul id="TodoList"></ul>
+      <div id="TodoList"></div>
     </div>
     <script type="text/javascript" src="./render.js"></script>
   </body>

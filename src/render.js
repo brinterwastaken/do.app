@@ -12,27 +12,24 @@ inputbar.addEventListener("keyup", function(EnterPressed) {
   }
 });
 function setTheme(arg) {
+  var conf = {"theme" : arg, "opacity" : storage.getSync('config').opacity, "accent" : storage.getSync('config').accent}
   if (arg == 'dark') {
     ipcRenderer.invoke('dark-mode:enabled');
     document.getElementById('darktheme').setAttribute('checked', 'checked');
-    storage.set("theme", {"theme" : arg});
+    storage.set('config', conf);
   }
   else if (arg == 'light') {
     ipcRenderer.invoke('dark-mode:disabled');
     document.getElementById('lighttheme').setAttribute('checked', 'checked');
-    storage.set("theme", {"theme" : arg});
+    storage.set('config', conf);
   }
   else if (arg == 'sys') {
     ipcRenderer.invoke('dark-mode:system');
     document.getElementById('systheme').setAttribute('checked', 'checked');
-    storage.set("theme", {"theme" : arg});
+    storage.set('config', conf);
   }
 }
-function setBlur(arg) {
-  ipcRenderer.send('blurchange', arg);
-  storage.set("blur", {"blurtype" : arg});
-}
-var listItem = document.querySelector('ul');
+var listItem = document.querySelector('#TodoList');
 listItem.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('done');
@@ -45,7 +42,7 @@ function newItem() {
   var inputValue = document.getElementById("input").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
-  if (inputValue === '') {
+  if (inputValue === '' || inputValue === ' ') {
     alert("You must write something!");
   } 
   else {
@@ -79,7 +76,7 @@ function currentTime() {
     hh = (hh < 10) ? "0" + hh : hh;
     mm = (mm < 10) ? "0" + mm : mm;  
     let time = hh + ":" + mm
-    document.getElementById("time").innerText = "The time is " + time; 
+    document.getElementById("time").innerText = time; 
     let t = setTimeout(function(){ currentTime() }, Infinity);
 }
 function currentDate() {
@@ -112,7 +109,7 @@ function currentDate() {
     if (month == 11) {monthName = " December"}
     let year = " " + today.getFullYear();
     let date = dayName + ", " + dayNum + suffix + monthName + year;
-    document.getElementById("date").innerText = "Today is " + date;
+    document.getElementById("date").innerText = date;
     let t = setTimeout(function(){ currentTime() }, Infinity); 
 }
 currentTime();
@@ -122,13 +119,15 @@ let open = "0";
 function sidebar() {
   if (open == "0") {
     document.getElementById("sidebar").style.width = "250px";
-    css.style.setProperty('--filter', 'blur(5px)');
+    css.style.setProperty('--filter', 'blur(15px)');
+    document.querySelector('.main').style.setProperty('pointer-events', 'none');
     document.getElementById("titlebar").style.setProperty('background-color', 'var(--sidebar-bg)');
     open = "1";
   }
   else if (open == "1") {
     document.getElementById("sidebar").style.width = "0";
     css.style.setProperty('--filter', 'none');
+    document.querySelector('.main').style.setProperty('pointer-events', 'all');
     document.getElementById("titlebar").style.setProperty('background-color', 'var(--titlebar-bg)');
     open = "0";
   }
@@ -153,58 +152,44 @@ ipcRenderer.on('mainprocess-response', (event, arg) => {
     }
   }
 });
-var arg;
+var opacitybar = document.getElementById('opacity-slider');
+var opacitydisp = document.getElementById('opacity-value');
+var accentpicker = document.getElementById('accent-selector');
+var accentdisp = document.getElementById('accent-value');
 ipcRenderer.send('request-datapath');
 ipcRenderer.on('datapath', (event, arg) => {
   document.getElementById('head').insertAdjacentHTML('beforeend','<link rel="stylesheet" type="text/css" href="' + arg + (process.platform == 'win32' ? "\\" : "/") + "custom.css\">");
-  storage.setDataPath(arg + (process.platform == 'win32' ? "\\" : "/") + "config");
-  storage.get('opacity', function(error, data) {
+  storage.setDataPath(arg);
+  storage.get('config', function(error, data) {
     if (error) throw error;
-    for(let value of Object.values(data)){
-      console.log(value)
-      css.style.setProperty('--bg-opacity', value);
-    }
-  });
-  storage.get('theme', function(error, data) {
-    if (error) throw error;
-    for(let value of Object.values(data)){
-      console.log(value);
-      setTheme(value);
-    }
-  });
-  storage.get('blur', function(error, data) {
-    if (error) throw error;
-    for(let value of Object.values(data)){
-      console.log(value);
-      setBlur(value);
-    }
+    console.log(data)
+    css.style.setProperty('--bg-opacity', data.opacity)
+    opacitybar.value = (data.opacity * 100)/5
+    opacitydisp.innerText = data.opacity * 100 + "%"
+    setTheme(data.theme);
+    css.style.setProperty('--accent', data.accent)
+    accentpicker.value = data.accent
+    accentdisp.innerText = data.accent
   });
   openDataPath(arg);
 });
-ipcRenderer.on('blurchange-error', (event, arg) => {
-  alert("This option only works on windows.")
+opacitybar.addEventListener('input', () => {
+  opacitydisp.innerText = opacitybar.value * 5 + "%"
+  opacity = (opacitybar.value * 5)/100;
+  css.style.setProperty('--bg-opacity', opacity);
+  var conf = {"theme" : storage.getSync('config').theme, "opacity" : opacity, "accent" : storage.getSync('config').accent}
+  storage.set('config', conf)
 });
-var opacitybar = document.getElementById('opacity-input');
-function ChangeOpacity() {
-  opacity = opacitybar.value;
-  if (opacity <=1 && opacity >= 0) {
-    css.style.setProperty('--bg-opacity', opacity);
-    opacitybar.placeholder = opacity;
-    opacitybar.value = '';
-    storage.set('opacity', {"opacity" : opacity}, function(error) {
-      if (error) throw error;
-    });
-  }
-  else {
-    alert("Invalid opacity. Please supply a number between 0 and 1.");
-  }
-}
-opacitybar.addEventListener("keyup", function(EnterPressed) {
-  if (EnterPressed.keyCode === 13) {
-    EnterPressed.preventDefault();
-    ChangeOpacity();
-  }
+accentpicker.addEventListener('change', () => {
+  css.style.setProperty('--accent', accentpicker.value);
+  var conf = {"theme" : storage.getSync('config').theme, "opacity" : storage.getSync('config').opacity, "accent" : accentpicker.value}
+  storage.set('config', conf)
 });
+accentdisp.addEventListener('click', () => {
+  navigator.clipboard.writeText(accentdisp.innerText);
+  accentdisp.innerText = "Copied!"
+  setTimeout(() => {accentdisp.innerText = accentpicker.value}, 2500)
+})
 var close = document.getElementsByClassName("close");
 var i;
 for (i = 0; i < close.length; i++) {

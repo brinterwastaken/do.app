@@ -1,5 +1,5 @@
 const electron = require('electron');
-const glasstron = require('glasstron');
+const glasstron = require('glasstron-clarity');
 const path = require('path');
 const { ipcMain } = require('electron');
 const fs = require('fs');
@@ -63,13 +63,7 @@ const spawnWindow = () => {
 
   // and load the index.html of the app.
   win.loadFile(path.join(__dirname, 'index.html'));
-  if (process.platform == "win32") {
-    win.blurType = "acrylic";
-    acrylicWorkaround(win, 60);
-    win.setBlur(true);
-  }
-  else if (process.platform == "linux") {
-    win.blurType = "blurbehind";
+  if (process.platform == "win32" || process.platform == "linux") {
     win.setBlur(true);
   }
   else if (process.platform == "darwin") {
@@ -92,28 +86,8 @@ const spawnWindow = () => {
   ipcMain.on('minimize-win', (event, arg) => {
     win.minimize();
   });
-  ipcMain.on('blurchange', (event, arg) => {
-    if (process.platform == "win32") {
-      if (arg == 'acrylic') {
-        win.setBlur(false);
-        win.blurType = "acrylic";
-        win.setBlur(true);
-      }
-      else if (arg == 'aero') {
-        win.setBlur(false);
-        win.blurType = "blurbehind";
-        win.setBlur(true);
-      }
-      else if (arg == 'none') {
-        win.setBlur(false);
-        win.blurType = "transparent";
-        win.setBlur(true);
-      }
-    }
-    else {
-      event.sender.send('blurchange-error');
-    }
-  });
+
+  acrylicWorkaround(win, 70)
 };
 
 
@@ -145,7 +119,7 @@ ipcMain.on('savefile', (event, arg) => {
     console.log("The file has been succesfully saved");
   });
 });
-  ipcMain.on('request-datapath', (event) => {
+ipcMain.on('request-datapath', (event) => {
   event.sender.send('datapath', datapath);
 });
 
@@ -153,7 +127,8 @@ ipcMain.on('savefile', (event, arg) => {
 // Acrylic Workaround from https://github.com/NyaomiDEV/Glasstron/blob/master/test/index.js
 function acrylicWorkaround(win, pollingRate = 60){
   // Replace window moving behavior to fix mouse polling rate bug
-  win.on("will-move", (e) => {
+
+  /*win.on("will-move", (e) => {
     if(win.blurType !== "acrylic")
       return;
     
@@ -198,7 +173,7 @@ function acrylicWorkaround(win, pollingRate = 60){
         }
       }, 1000/(pollingRate * 10));
     }
-  });
+  });*/
 
   // Replace window resizing behavior to fix mouse polling rate bug
   win.on("will-resize", (e) => {
