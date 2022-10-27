@@ -7,27 +7,6 @@ const fs = require('fs');
 const datapath = electron.app.getPath('userData');
 console.log(datapath);
 
-if (fs.existsSync(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml")) {
-  fs.readFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", 'utf-8', (err, data) => {
-    if(err){
-      console.log("An error ocurred reading the file :" + err.message);
-    }
-    var todocontent = data;
-    ipcMain.on('request-mainprocess-action', (event, arg) => {
-      event.sender.send('mainprocess-response', todocontent);
-    });
-  });
-}
-else {
-  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", '', (err) => {
-    if(err){
-      console.log("An error ocurred creating the file "+ err.message)
-    }
-    console.log("New todo file created");
-  });
-}
-
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   // eslint-disable-line global-require
@@ -111,18 +90,12 @@ electron.app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on('savefile', (event, arg) => {
-  fs.writeFile(datapath + (process.platform == 'win32' ? "\\" : "/") + "todo.xml", arg, (err) => {
-    if(err){
-      console.log("An error ocurred creating the file "+ err.message)
-    }
-    console.log("The file has been succesfully saved");
-  });
-});
 ipcMain.on('request-datapath', (event) => {
   event.sender.send('datapath', datapath);
 });
-
+ipcMain.on('errbox', (event, args) => {
+  electron.dialog.showErrorBox(args[0], args[1])
+})
 
 // Acrylic Workaround from https://github.com/NyaomiDEV/Glasstron/blob/master/test/index.js
 function acrylicWorkaround(win, pollingRate = 60){

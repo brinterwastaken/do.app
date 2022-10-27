@@ -3,6 +3,24 @@ const storage = require('electron-json-storage');
 const os = require('os');
 const { shell } = require('electron');
 
+ipcRenderer.send('request-datapath');
+ipcRenderer.on('datapath', (event, arg) => {
+  document.getElementById('head').insertAdjacentHTML('beforeend','<link rel="stylesheet" type="text/css" href="' + arg + (process.platform == 'win32' ? "\\" : "/") + "custom.css\">");
+  storage.setDataPath(arg);
+  storage.get('config', function(error, data) {
+    if (error) throw error;
+    console.log(data)
+    css.style.setProperty('--bg-opacity', data.opacity)
+    opacitybar.value = (data.opacity * 100)/5
+    opacitydisp.innerText = data.opacity * 100 + "%"
+    setTheme(data.theme);
+    css.style.setProperty('--accent', data.accent)
+    accentpicker.value = data.accent
+    accentdisp.innerText = data.accent
+    getTodo()
+  });
+  openDataPath(arg);
+});
 
 var inputbar = document.getElementById('input');
 inputbar.addEventListener("keyup", function(EnterPressed) {
@@ -16,25 +34,24 @@ function setTheme(arg) {
   if (arg == 'dark') {
     ipcRenderer.invoke('dark-mode:enabled');
     document.getElementById('darktheme').setAttribute('checked', 'checked');
-    storage.set('config', conf);
+    storage.set('config', conf, {prettyPrinting: true});
   }
   else if (arg == 'light') {
     ipcRenderer.invoke('dark-mode:disabled');
     document.getElementById('lighttheme').setAttribute('checked', 'checked');
-    storage.set('config', conf);
+    storage.set('config', conf, {prettyPrinting: true});
   }
   else if (arg == 'sys') {
     ipcRenderer.invoke('dark-mode:system');
     document.getElementById('systheme').setAttribute('checked', 'checked');
-    storage.set('config', conf);
+    storage.set('config', conf, {prettyPrinting: true});
   }
 }
 var listItem = document.querySelector('#TodoList');
 listItem.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('done');
-    var content = document.getElementById("TodoList").innerHTML;
-    ipcRenderer.send('savefile', content);
+    updateTodo();
   }
 }, false);
 function newItem() {
@@ -43,10 +60,10 @@ function newItem() {
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '' || inputValue === ' ') {
-    alert("You must write something!");
+    ipcRenderer.send('errbox', ["Invalid Input", `"${inputValue}" cannot be added as a task. (Are you bored with nothing to do?)`])
   } 
   else {
-    document.getElementById("TodoList").appendChild(li);
+    listItem.appendChild(li);
     document.getElementById("input").value = "";
 
     var span = document.createElement("SPAN");
@@ -55,19 +72,9 @@ function newItem() {
     span.appendChild(txt);
     li.appendChild(span);
 
-    var content = document.getElementById("TodoList").innerHTML;
-    ipcRenderer.send('savefile', content);
+    updateTodo();
   }
   
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.remove();
-      var content = document.getElementById("TodoList").innerHTML;
-      ipcRenderer.send('savefile', content);
-    }
-  }
 }
 function currentTime() {
     let date = new Date(); 
@@ -137,69 +144,36 @@ ipcRenderer.on('filepath', (event, arg) => {
   console.log(arg);
 });
 
+/*
 ipcRenderer.send('request-mainprocess-action');
 
 ipcRenderer.on('mainprocess-response', (event, arg) => {
   document.getElementById("TodoList").insertAdjacentHTML("beforeend", arg);
-  var close = document.getElementsByClassName("close");
-  var i;
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.remove();
-      var content = document.getElementById("TodoList").innerHTML;
-      ipcRenderer.send('savefile', content);
-    }
-  }
+  updateTodo();
 });
+*/
 var opacitybar = document.getElementById('opacity-slider');
 var opacitydisp = document.getElementById('opacity-value');
 var accentpicker = document.getElementById('accent-selector');
 var accentdisp = document.getElementById('accent-value');
-ipcRenderer.send('request-datapath');
-ipcRenderer.on('datapath', (event, arg) => {
-  document.getElementById('head').insertAdjacentHTML('beforeend','<link rel="stylesheet" type="text/css" href="' + arg + (process.platform == 'win32' ? "\\" : "/") + "custom.css\">");
-  storage.setDataPath(arg);
-  storage.get('config', function(error, data) {
-    if (error) throw error;
-    console.log(data)
-    css.style.setProperty('--bg-opacity', data.opacity)
-    opacitybar.value = (data.opacity * 100)/5
-    opacitydisp.innerText = data.opacity * 100 + "%"
-    setTheme(data.theme);
-    css.style.setProperty('--accent', data.accent)
-    accentpicker.value = data.accent
-    accentdisp.innerText = data.accent
-  });
-  openDataPath(arg);
-});
 opacitybar.addEventListener('input', () => {
   opacitydisp.innerText = opacitybar.value * 5 + "%"
   opacity = (opacitybar.value * 5)/100;
   css.style.setProperty('--bg-opacity', opacity);
   var conf = {"theme" : storage.getSync('config').theme, "opacity" : opacity, "accent" : storage.getSync('config').accent}
-  storage.set('config', conf)
+  storage.set('config', conf, {prettyPrinting: true})
 });
 accentpicker.addEventListener('change', () => {
   css.style.setProperty('--accent', accentpicker.value);
   var conf = {"theme" : storage.getSync('config').theme, "opacity" : storage.getSync('config').opacity, "accent" : accentpicker.value}
-  storage.set('config', conf)
+  storage.set('config', conf, {prettyPrinting: true})
+  accentdisp.innerText = accentpicker.value
 });
 accentdisp.addEventListener('click', () => {
   navigator.clipboard.writeText(accentdisp.innerText);
   accentdisp.innerText = "Copied!"
   setTimeout(() => {accentdisp.innerText = accentpicker.value}, 2500)
 })
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.remove();
-    var content = document.getElementById("TodoList").innerHTML;
-    ipcRenderer.send('savefile', content);
-  }
-}
 function closeWin() {
   ipcRenderer.send('close-win');
 }
@@ -210,4 +184,47 @@ function openDataPath(path) {
   document.getElementById('opendatapath').addEventListener("click", () => {
     shell.openPath(path)
   });
+}
+
+function updateTodo() {
+  var arr = Array.prototype.slice.call(listItem.children)
+  var obj = {}
+  arr.forEach((e, i) => {
+    obj[i] = [e.innerText.slice(0, -2), e.classList[0] == 'done' ? 'done' : '']
+  })
+  console.log(obj)
+  storage.set('todolist', obj, {prettyPrinting: true})
+  close = document.getElementsByClassName("close");
+  
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      this.parentElement.remove()
+      updateTodo()
+    }
+  }
+}
+
+function getTodo() {
+  storage.get('todolist', (err, data) => {
+    if (err) {
+      throw err
+    }
+    for (i=0; i<Object.entries(data).length; i++) {
+      console.log('key: ' + i + ' value: ' + data[i])
+      console.log(data[i])
+
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode(data[i][0]));
+
+      var span = document.createElement("span");
+      span.className = "close nf";
+      span.appendChild(document.createTextNode(""));
+
+      li.appendChild(span);
+      listItem.appendChild(li)
+      
+      li.classList = data[i][1]
+    }
+    updateTodo()
+  })
 }

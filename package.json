@@ -1,7 +1,7 @@
 {
   "name": "do.app",
   "productName": "do.app",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "A simple, customizable Todo list app.",
   "main": "src/index.js",
   "scripts": {
