@@ -29,4 +29,4 @@ npm run make
 </ul>
 <p>You can open the configuration directory by clicking the button on the sidebar.</p>
 <p>In this directory you can create a file called custom.css for custom css modifications. (Subject to change)</p>
-<p>To change blur type on windows (v0.5.4 onwards), run setBlur({type}) in the console of inspector (Ctrl + Shift + I), where {type} can be one of 'acrylic' 'aero' or 'transparent' (Including the '').</p>
+<p><s>To change blur type on windows (v0.5.4 onwards), run setBlur({type}) in the console of inspector (Ctrl + Shift + I), where {type} can be one of 'acrylic' 'aero' or 'transparent' (Including the '').</s> Removed in v0.5.6</p>
