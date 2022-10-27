@@ -4,7 +4,7 @@
 <br>
 <h1>do.app</h1>
 <p>A simple, customizable Todo list app, made with Electron and Glasstron</p>
-<h2>Screenshot-</h2>
+<h2>Screenshot</h2>
 <img src="https://user-images.githubusercontent.com/72494265/198091708-00de108f-5ff0-4205-8557-2d684e17935b.png"></img>
 <br>
 <h2>Install</h2>
