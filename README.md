@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/xXTgamerXx/do.app/main/src/icon.png" alt="icon" width="96"></img>
+  <img src="https://raw.githubusercontent.com/xXTgamerXx/do.app/main/src/icon.png" alt="icon" width="128"></img>
 </p>
 <br>
 <h1>do.app</h1>
