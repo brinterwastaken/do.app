@@ -50,6 +50,8 @@ const spawnWindow = () => {
     win.setBlur(true);
   }
 
+  win.setIcon(path.join(__dirname, 'icon.png'))
+
   ipcMain.handle('dark-mode:disabled', () => {
     electron.nativeTheme.themeSource = 'light'
   });
