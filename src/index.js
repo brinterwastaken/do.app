@@ -7,11 +7,10 @@ const fs = require('fs');
 const datapath = electron.app.getPath('userData');
 console.log(datapath);
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
-  // eslint-disable-line global-require
   electron.app.quit();
 }
+
 electron.app.commandLine.appendSwitch("enable-transparent-visuals");
 electron.app.on('ready', () => {
   setTimeout(
@@ -24,12 +23,13 @@ electron.app.on('ready', () => {
     // spawn function.
   );
 });
+
 const spawnWindow = () => {
-  // Create the browser window.
   const win = new glasstron.BrowserWindow({
     width: 400,
     height: 800,
     minWidth: 400,
+    minHeight: 600,
     frame: false,
     vibrancy: "sidebar",
     autoHideMenuBar: true,
@@ -40,7 +40,6 @@ const spawnWindow = () => {
   });
   console.log("do.app on " + process.platform);
 
-  // and load the index.html of the app.
   win.loadFile(path.join(__dirname, 'index.html'));
   if (process.platform == "win32" || process.platform == "linux") {
     win.setBlur(true);
@@ -71,26 +70,11 @@ const spawnWindow = () => {
   acrylicWorkaround(win, 70)
 };
 
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-/*electron.app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    electron.app.quit();
-  }
-});*/
-
 electron.app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (glasstron.BrowserWindow.getAllWindows().length === 0) {
     spawnWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
 
 ipcMain.on('request-datapath', (event) => {
   event.sender.send('datapath', datapath);
